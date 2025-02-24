@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="scrapy-html",
-    version="0.1.2",
+    name="scrapy_html",
+    version="0.1.3",
     packages=find_packages(),
     install_requires=[
         "beautifulsoup4>=4.12.0",

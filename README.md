@@ -21,7 +21,7 @@
 Para instalar o pacote diretamente do **PyPI**, execute:
 
 ```bash
-pip install scrapy-html
+pip install scrapy_html
 ```
 
 ---
