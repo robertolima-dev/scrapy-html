@@ -1,6 +1,5 @@
 ### 🚀 **README.md**
 
-```markdown
 # 🌐 Scrapy-HTML
 
 🔍 **Scrapy-HTML** é um pacote Python simples e eficiente que faz scraping do conteúdo HTML completo de qualquer página web fornecida. Ele utiliza as bibliotecas **BeautifulSoup4** e **Requests** para realizar a raspagem e retornar o HTML de forma estruturada e legível.

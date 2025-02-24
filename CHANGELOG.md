@@ -1,6 +1,10 @@
 # 📜 Changelog
 
 
+## [0.1.4] - 2025-02-24
+### Adicionado
+- Ajuste README
+
 ## [0.1.3] - 2025-02-24
 ### Adicionado
 - Normalized name
