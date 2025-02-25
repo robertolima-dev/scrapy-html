@@ -1,6 +1,10 @@
 # 📜 Changelog
 
 
+## [1.1.4] - 2025-02-25
+### Adicionado
+- Filtros por tags, classes e atributos
+
 ## [0.1.4] - 2025-02-24
 ### Adicionado
 - Ajuste README
