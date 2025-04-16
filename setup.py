@@ -1,8 +1,8 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
     name="scrapy_html",
-    version="1.1.4",
+    version="1.1.5",
     packages=find_packages(),
     install_requires=[
         "beautifulsoup4>=4.12.0",
@@ -11,7 +11,7 @@ setup(
     ],
     author="Roberto Lima",
     author_email="robertolima.izphera@gmail.com",
-    description="🌐 Um scraper que retorna o HTML completo de uma URL, tags, classes e atributos usando BeautifulSoup",
+    description="🌐 Um scraper que retorna o HTML completo de uma URL, tags, classes e atributos usando BeautifulSoup", # noqa501
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/robertolima-dev/scrapy-html",
@@ -26,5 +26,9 @@ setup(
         ],
     },
     python_requires=">=3.6",
-    tests_require=["pytest>=7.0.0"],
+    project_urls={
+        "Homepage": "https://github.com/robertolima-dev/scrapy-html", # noqa501
+        "Repository": "https://github.com/robertolima-dev/scrapy-html", # noqa501
+        "Issues": "https://github.com/robertolima-dev/scrapy-html/issues", # noqa501
+    },
 )

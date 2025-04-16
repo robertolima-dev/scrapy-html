@@ -15,6 +15,7 @@
   - Classe CSS (`class_`)
   - ID (`id_`)
   - Atributos personalizados (`attrs`)
+  - Headers HTTP personalizados (`headers`)
 - ⚡ Retorna o HTML formatado e legível usando `BeautifulSoup`.
 - 🔒 Tratamento de erros robusto para URLs inválidas ou problemas de rede.
 - 💡 Leve e fácil de usar, com dependências mínimas.
@@ -74,6 +75,17 @@ print(dados)
 #### 🛠 **Filtrar por atributos personalizados:**
 ```python
 dados = get_html_content(url, tag="img", attrs={"alt": "Imagem principal"})
+print(dados)
+```
+
+#### 🔒 **Usar headers personalizados:**
+```python
+headers = {
+    "User-Agent": "Mozilla/5.0",
+    "Accept": "text/html",
+    "Accept-Language": "pt-BR"
+}
+dados = get_html_content(url, headers=headers)
 print(dados)
 ```
 

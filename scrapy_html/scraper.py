@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def get_html_content(url, tag=None, tags=None, class_=None, id_=None, attrs=None):
+def get_html_content(url, tag=None, tags=None, class_=None, id_=None, attrs=None, headers=None):
     """
     🌐 Raspagem flexível de páginas HTML com filtros personalizados.
 
@@ -13,12 +13,13 @@ def get_html_content(url, tag=None, tags=None, class_=None, id_=None, attrs=None
         class_ (str, opcional): Nome da classe CSS para filtragem.
         id_ (str, opcional): ID específico para filtragem.
         attrs (dict, opcional): Atributos adicionais para filtragem.
+        headers (dict, opcional): Headers HTTP para a requisição.
 
     Returns:
         list: Lista de elementos HTML filtrados conforme os parâmetros.
     """
     try:
-        response = requests.get(url)
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
     except requests.RequestException as e:
         raise Exception(f"❌ Falha ao acessar a URL: {url}. Erro: {e}")
@@ -51,11 +52,11 @@ def get_html_content(url, tag=None, tags=None, class_=None, id_=None, attrs=None
 if __name__ == "__main__":
     url_teste = "https://example.com"
     print("🔍 Raspando todas as tags <p> com a classe 'conteudo':")
-    resultado = scrape(url=url_teste, tag="p", class_="conteudo")
+    resultado = get_html_content(url=url_teste, tag="p", class_="conteudo")
     for i, r in enumerate(resultado, 1):
         print(f"{i}: {r}\n")
 
     print("🔍 Raspando múltiplas tags <div> e <span>:")
-    resultado = scrape(url=url_teste, tags="div,span")
+    resultado = get_html_content(url=url_teste, tags="div,span")
     for i, r in enumerate(resultado, 1):
         print(f"{i}: {r}\n")

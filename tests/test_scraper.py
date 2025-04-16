@@ -99,6 +99,22 @@ def test_get_html_content_http_error(mock_get):
         get_html_content("https://exemplo.com")
 
 
+@patch("scrapy_html.scraper.requests.get")
+def test_get_html_content_headers(mock_get):
+    """🔒 Testa o uso de headers na requisição."""
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "text/html"
+    }
+    mock_get.return_value = MockResponse("""
+        <html><body><p>Conteúdo com headers</p></body></html>
+    """)
+    resultado = get_html_content("https://exemplo.com", headers=headers)
+    mock_get.assert_called_once_with("https://exemplo.com", headers=headers)
+    assert len(resultado) == 3  # html, body, p
+    assert "<p>Conteúdo com headers</p>" in resultado[2]
+
+
 # 🏃 **Execução dos testes**
 if __name__ == "__main__":
     pytest.main(["-v", "tests/test_scraper.py"])
