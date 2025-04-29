@@ -16,6 +16,10 @@
   - ID (`id_`)
   - Atributos personalizados (`attrs`)
   - Headers HTTP personalizados (`headers`)
+- ⚡ **Múltiplos parsers HTML**:
+  - `html.parser` (padrão): Parser nativo do Python
+  - `lxml`: Parser rápido baseado em C
+  - `html5lib`: Parser mais leniente e compatível com HTML5
 - ⚡ Retorna o HTML formatado e legível usando `BeautifulSoup`.
 - 🔒 Tratamento de erros robusto para URLs inválidas ou problemas de rede.
 - 💡 Leve e fácil de usar, com dependências mínimas.
@@ -28,6 +32,21 @@ Instale o pacote diretamente do **PyPI**:
 
 ```bash
 pip install scrapy_html
+```
+
+### 📦 **Parsers Opcionais**
+
+Para usar parsers alternativos, instale as dependências opcionais:
+
+```bash
+# Para usar o parser lxml (mais rápido)
+pip install scrapy_html[lxml]
+
+# Para usar o parser html5lib (mais leniente)
+pip install scrapy_html[html5lib]
+
+# Para usar todos os parsers
+pip install scrapy_html[lxml,html5lib]
 ```
 
 ---
@@ -86,6 +105,21 @@ headers = {
     "Accept-Language": "pt-BR"
 }
 dados = get_html_content(url, headers=headers)
+print(dados)
+```
+
+#### 🔍 **Usar diferentes parsers HTML:**
+```python
+# Usando o parser padrão (html.parser)
+dados = get_html_content(url)
+print(dados)
+
+# Usando o parser lxml (mais rápido)
+dados = get_html_content(url, parser="lxml")
+print(dados)
+
+# Usando o parser html5lib (mais leniente)
+dados = get_html_content(url, parser="html5lib")
 print(dados)
 ```
 
@@ -169,15 +203,9 @@ Para contribuir, siga estas etapas:
 
 ---
 
-## 📝 **Licença**
-
-Distribuído sob a **Licença MIT**. Veja o arquivo [LICENSE](LICENSE) para mais informações.
-
----
-
 ## 👨‍💻 **Autor**
 
-Desenvolvido por **[Roberto Lima](https://robertolima-developer.vercel.app/)** 🚀✨
+Desenvolvido por **[Roberto Lima](https://github.com/robertolima-dev)** 🚀✨
 
 ---
 
@@ -185,19 +213,11 @@ Desenvolvido por **[Roberto Lima](https://robertolima-developer.vercel.app/)** �
 
 - 📧 **Email**: robertolima.izphera@gmail.com
 - 💼 **LinkedIn**: [Roberto Lima](https://www.linkedin.com/in/roberto-lima-01/)
+- 💼 **Website**: [Roberto Lima](https://robertolima-developer.vercel.app/)
+- 💼 **Gravatar**: [Roberto Lima](https://gravatar.com/deliciouslyautomaticf57dc92af0)
+
 
 ---
 
-## ⭐ **Gostou do projeto?**
-
-Deixe uma ⭐ no repositório e compartilhe com a comunidade! 🚀✨
-
----
-
-## 🌟 **O que este README oferece?**
-- 🎯 **Descrição clara** do projeto e seu propósito.
-- 🛠 **Instruções detalhadas de instalação** e **uso prático**.
-- 🧪 **Guia de testes** para garantir que o código funciona.
-- 🏗 **Estrutura do projeto** para facilitar a navegação.
-- 🔄 **Seção de contribuição** para quem deseja ajudar no desenvolvimento.
-- 📝 **Licença e informações do autor** para transparência.
+## 📄 Licença
+MIT License

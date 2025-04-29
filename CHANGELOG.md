@@ -1,6 +1,10 @@
 # 📜 Changelog
 
 
+## [1.2.0] - 2025-04-29
+### Adicionado
+- Adicionamos suporte a múltiplos parsers HTML
+
 ## [1.1.5] - 2025-04-17
 ### Adicionado
 - Passando headers como parametro

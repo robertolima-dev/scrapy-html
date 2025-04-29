@@ -1,12 +1,14 @@
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # 🧪 tests/test_scraper.py
 
+from unittest.mock import MagicMock, patch
+
 import pytest
+
 from scrapy_html.scraper import get_html_content
-from unittest.mock import patch
 
 
 # 🔄 Mock para simular respostas HTTP
@@ -113,6 +115,50 @@ def test_get_html_content_headers(mock_get):
     mock_get.assert_called_once_with("https://exemplo.com", headers=headers)
     assert len(resultado) == 3  # html, body, p
     assert "<p>Conteúdo com headers</p>" in resultado[2]
+
+
+@patch("scrapy_html.scraper.requests.get")
+@patch("scrapy_html.scraper.BeautifulSoup")
+def test_get_html_content_parser_lxml(mock_bs, mock_get):
+    """🔍 Testa o uso do parser lxml."""
+    mock_get.return_value = MockResponse("""
+        <html><body><p>Conteúdo com lxml</p></body></html>
+    """)
+    mock_soup = MagicMock()
+    mock_soup.find_all.return_value = ["<p>Conteúdo com lxml</p>"]
+    mock_bs.return_value = mock_soup
+    resultado = get_html_content("https://exemplo.com", parser="lxml")
+    mock_bs.assert_called_once_with(mock_get.return_value.text, "lxml")
+    assert len(resultado) == 1
+    assert "<p>Conteúdo com lxml</p>" in resultado[0]
+
+
+@patch("scrapy_html.scraper.requests.get")
+@patch("scrapy_html.scraper.BeautifulSoup")
+def test_get_html_content_parser_html5lib(mock_bs, mock_get):
+    """🔍 Testa o uso do parser html5lib."""
+    mock_get.return_value = MockResponse("""
+        <html><body><p>Conteúdo com html5lib</p></body></html>
+    """)
+    mock_soup = MagicMock()
+    mock_soup.find_all.return_value = ["<p>Conteúdo com html5lib</p>"]
+    mock_bs.return_value = mock_soup
+    resultado = get_html_content("https://exemplo.com", parser="html5lib")
+    mock_bs.assert_called_once_with(mock_get.return_value.text, "html5lib")
+    assert len(resultado) == 1
+    assert "<p>Conteúdo com html5lib</p>" in resultado[0]
+
+
+@patch("scrapy_html.scraper.requests.get")
+@patch("scrapy_html.scraper.BeautifulSoup")
+def test_get_html_content_parser_invalido(mock_bs, mock_get):
+    """❌ Testa o uso de um parser inválido."""
+    mock_get.return_value = MockResponse("""
+        <html><body><p>Conteúdo</p></body></html>
+    """)
+    mock_bs.side_effect = Exception("Parser inválido")
+    with pytest.raises(Exception, match="❌ Erro ao usar o parser"):
+        get_html_content("https://exemplo.com", parser="parser_invalido")
 
 
 # 🏃 **Execução dos testes**

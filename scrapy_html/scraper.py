@@ -1,8 +1,19 @@
+from typing import Dict, List, Optional, Union
+
 import requests
 from bs4 import BeautifulSoup
 
 
-def get_html_content(url, tag=None, tags=None, class_=None, id_=None, attrs=None, headers=None):
+def get_html_content(
+    url: str,
+    tag: Optional[str] = None,
+    tags: Optional[Union[str, List[str]]] = None,
+    class_: Optional[str] = None,
+    id_: Optional[str] = None,
+    attrs: Optional[Dict] = None,
+    headers: Optional[Dict] = None,
+    parser: str = "html.parser"
+) -> List[str]:
     """
     🌐 Raspagem flexível de páginas HTML com filtros personalizados.
 
@@ -14,9 +25,16 @@ def get_html_content(url, tag=None, tags=None, class_=None, id_=None, attrs=None
         id_ (str, opcional): ID específico para filtragem.
         attrs (dict, opcional): Atributos adicionais para filtragem.
         headers (dict, opcional): Headers HTTP para a requisição.
+        parser (str, opcional): Parser HTML a ser usado. Opções:
+            - "html.parser" (padrão): Parser nativo do Python
+            - "lxml": Parser rápido baseado em C
+            - "html5lib": Parser mais leniente e compatível com HTML5
 
     Returns:
         list: Lista de elementos HTML filtrados conforme os parâmetros.
+
+    Raises:
+        Exception: Se houver erro ao acessar a URL ou se o parser não estiver disponível.
     """
     try:
         response = requests.get(url, headers=headers)
@@ -24,7 +42,10 @@ def get_html_content(url, tag=None, tags=None, class_=None, id_=None, attrs=None
     except requests.RequestException as e:
         raise Exception(f"❌ Falha ao acessar a URL: {url}. Erro: {e}")
 
-    soup = BeautifulSoup(response.text, "html.parser")
+    try:
+        soup = BeautifulSoup(response.text, parser)
+    except Exception as e:
+        raise Exception(f"❌ Erro ao usar o parser '{parser}'. Certifique-se de que está instalado. Erro: {e}")
 
     search_params = {}
     if class_:
