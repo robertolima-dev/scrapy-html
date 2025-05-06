@@ -16,6 +16,9 @@
   - ID (`id_`)
   - Atributos personalizados (`attrs`)
   - Headers HTTP personalizados (`headers`)
+- 🌐 **Suporte a Proxies**:
+  - Configuração de proxies HTTP/HTTPS
+  - Timeout personalizado para requisições via proxy
 - ⚡ **Múltiplos parsers HTML**:
   - `html.parser` (padrão): Parser nativo do Python
   - `lxml`: Parser rápido baseado em C
@@ -123,6 +126,20 @@ dados = get_html_content(url, parser="html5lib")
 print(dados)
 ```
 
+#### 🌐 **Usar proxies:**
+```python
+proxies = {
+    "http": "http://proxy1:8080",
+    "https": "https://proxy2:8080"
+}
+dados = get_html_content(
+    url,
+    proxies=proxies,
+    proxy_timeout=30  # timeout em segundos
+)
+print(dados)
+```
+
 ---
 
 ## 🛠 **Requisitos**
@@ -153,7 +170,8 @@ pytest tests/
 ## 🎨 **Recursos Futuros**
 
 - [x] 🔍 Parâmetros avançados para scraping filtrado.
-- [ ] 🌐 Suporte a diferentes parsers (`lxml`, `html5lib`).
+- [x] 🌐 Suporte a diferentes parsers (`lxml`, `html5lib`).
+- [x] 🌐 Suporte a proxies HTTP/HTTPS.
 - [ ] 🔄 Scraping assíncrono para maior desempenho.
 - [ ] ⚡ Download de recursos estáticos (imagens, CSS, JS).
 - [ ] 🧪 Testes automatizados avançados com `requests-mock`.

@@ -1,5 +1,10 @@
-# 📜 Changelog
+# �� Changelog
 
+
+## [1.3.0] - 2025-05-06
+### Adicionado
+- Suporte a proxies HTTP/HTTPS
+- Configuração de timeout para requisições via proxy
 
 ## [1.2.0] - 2025-04-29
 ### Adicionado

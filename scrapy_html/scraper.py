@@ -12,7 +12,9 @@ def get_html_content(
     id_: Optional[str] = None,
     attrs: Optional[Dict] = None,
     headers: Optional[Dict] = None,
-    parser: str = "html.parser"
+    parser: str = "html.parser",
+    proxies: Optional[Dict[str, str]] = None,
+    proxy_timeout: Optional[int] = None
 ) -> List[str]:
     """
     🌐 Raspagem flexível de páginas HTML com filtros personalizados.
@@ -29,15 +31,22 @@ def get_html_content(
             - "html.parser" (padrão): Parser nativo do Python
             - "lxml": Parser rápido baseado em C
             - "html5lib": Parser mais leniente e compatível com HTML5
+        proxies (dict, opcional): Dicionário de proxies no formato {'http': 'http://proxy:port', 'https': 'https://proxy:port'}
+        proxy_timeout (int, opcional): Timeout em segundos para requisições via proxy
 
     Returns:
         list: Lista de elementos HTML filtrados conforme os parâmetros.
 
     Raises:
         Exception: Se houver erro ao acessar a URL ou se o parser não estiver disponível.
-    """
+    """ # noqa501
     try:
-        response = requests.get(url, headers=headers)
+        response = requests.get(
+            url,
+            headers=headers,
+            proxies=proxies,
+            timeout=proxy_timeout
+        )
         response.raise_for_status()
     except requests.RequestException as e:
         raise Exception(f"❌ Falha ao acessar a URL: {url}. Erro: {e}")
@@ -45,7 +54,7 @@ def get_html_content(
     try:
         soup = BeautifulSoup(response.text, parser)
     except Exception as e:
-        raise Exception(f"❌ Erro ao usar o parser '{parser}'. Certifique-se de que está instalado. Erro: {e}")
+        raise Exception(f"❌ Erro ao usar o parser '{parser}'. Certifique-se de que está instalado. Erro: {e}") # noqa501
 
     search_params = {}
     if class_:
