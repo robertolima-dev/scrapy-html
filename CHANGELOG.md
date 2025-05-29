@@ -1,6 +1,18 @@
 # �� Changelog
 
 
+## [1.4.0] - 2025-05-29
+### Adicionado
+- Novo módulo `validators` para validação e limpeza de dados HTML:
+  - Limpeza de texto (`clean_text`)
+  - Limpeza de HTML (`clean_html`)
+  - Validação de URLs (`validate_url`)
+  - Sanitização de atributos HTML (`sanitize_attributes`)
+  - Extração de dados estruturados (meta tags, JSON-LD, Open Graph, Twitter Cards) (`extract_structured_data`)
+- Testes automatizados para todas as funções de validação e limpeza
+- Atualização do README com exemplos de uso do novo módulo
+- Exportação da classe `DataValidator` no `__init__.py`
+
 ## [1.3.0] - 2025-05-06
 ### Adicionado
 - Suporte a proxies HTTP/HTTPS

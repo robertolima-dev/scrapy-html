@@ -26,6 +26,11 @@
 - ⚡ Retorna o HTML formatado e legível usando `BeautifulSoup`.
 - 🔒 Tratamento de erros robusto para URLs inválidas ou problemas de rede.
 - 💡 Leve e fácil de usar, com dependências mínimas.
+- 🧹 **Validação e Limpeza de Dados**:
+  - Limpeza de texto e HTML
+  - Validação de URLs
+  - Sanitização de atributos HTML
+  - Extração de dados estruturados (meta tags, JSON-LD, Open Graph, Twitter Cards)
 
 ---
 
@@ -239,3 +244,41 @@ Desenvolvido por **[Roberto Lima](https://github.com/robertolima-dev)** 🚀✨
 
 ## 📄 Licença
 MIT License
+
+### 🧹 **Validação e Limpeza de Dados:**
+
+```python
+from scrapy_html import DataValidator
+
+validator = DataValidator()
+
+# Limpeza de texto
+texto_limpo = validator.clean_text("  Hello   World  ")
+print(texto_limpo)  # "Hello World"
+
+# Limpeza de HTML
+html_limpo = validator.clean_html("<script>alert('test');</script><p>Hello</p>")
+print(html_limpo)  # "<p>Hello</p>"
+
+# Validação de URL
+url_valida = validator.validate_url("http://example.com")
+print(url_valida)  # True
+
+# Sanitização de atributos
+from bs4 import BeautifulSoup
+html = '<a href="http://example.com" onclick="alert(1)">Link</a>'
+soup = BeautifulSoup(html, 'html.parser')
+tag = soup.find('a')
+tag_sanitizada = validator.sanitize_attributes(tag)
+print(tag_sanitizada)  # <a href="http://example.com">Link</a>
+
+# Extração de dados estruturados
+dados = validator.extract_structured_data("""
+    <meta name="description" content="Test">
+    <meta property="og:title" content="Test OG">
+    <script type="application/ld+json">
+        {"@type": "WebPage"}
+    </script>
+""")
+print(dados)  # {'meta': {'description': 'Test'}, 'open_graph': {'title': 'Test OG'}, ...}
+```
