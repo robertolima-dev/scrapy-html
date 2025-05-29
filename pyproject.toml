@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scrapy_html"
-version = "1.4.0"
+version = "1.4.1"
 description = "🌐 Um scraper que retorna o HTML completo de uma URL, tags, classes e atributos usando BeautifulSoup"
 authors = [
     {name = "Roberto Lima", email = "robertolima.izphera@gmail.com"}
